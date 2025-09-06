@@ -229,7 +229,93 @@
      • If you regenerate the esptool ESM bundle, paste it into ESPT_BUNDLE_TEXT at the end.
      • If button/input IDs change, update the selectors in “Auto-wire controls” section.
 ------------------------------------------------------------------------------------- */
+(() => {
+  function wire() {
+    const btnConnect = document.querySelector('#connect');
+    const btnFlash   = document.querySelector('#flash');
+    const fileInput  = document.querySelector('#firmware');
 
+    if (!btnConnect && !btnFlash && !fileInput) {
+      console.warn('[Serial] No UI elements (#connect, #flash, #firmware) found.');
+      return;
+    }
+    if (!btnConnect) console.warn('[Serial] Missing #connect button — connect handler not attached.');
+    if (!btnFlash)   console.warn('[Serial] Missing #flash button — flash handler not attached.');
+    if (!fileInput)  console.warn('[Serial] Missing #firmware <input type="file"> — file chooser not wired.');
+
+    if (btnConnect) btnConnect.setAttribute('type', 'button');
+    if (btnFlash)   btnFlash.setAttribute('type', 'button');
+
+    let selectedFile;
+
+    if (fileInput) {
+      fileInput.addEventListener('change', () => {
+        selectedFile = fileInput.files?.[0];
+        if (btnFlash) btnFlash.disabled = !selectedFile || !loader;
+      });
+    }
+
+    if (btnConnect) {
+      btnConnect.addEventListener('click', async (ev) => {
+        console.log('[Serial] click → trusted=', ev.isTrusted,
+                    ' secure=', isSecureContext,
+                    ' serial=', 'serial' in navigator,
+                    ' top-level=', window.top === window);
+
+        btnConnect.disabled = true;
+        try {
+          if (!('serial' in navigator)) throw new Error('Web Serial unsupported (use Chrome/Edge desktop).');
+          if (!isSecureContext)         throw new Error('Not a secure context — use https:// or http://localhost.');
+
+          const chosen = await navigator.serial.requestPort(); // user gesture
+          await chosen.open({ baudRate: BAUD });
+          port = chosen;
+
+          // optional DTR/RTS dance
+          try {
+            await port.setSignals({ dataTerminalReady: false, requestToSend: true  }); await new Promise(r=>setTimeout(r,100));
+            await port.setSignals({ dataTerminalReady: true,  requestToSend: false }); await new Promise(r=>setTimeout(r,100));
+          } catch (e) { console.warn('[Serial] setSignals warn:', e); }
+
+          const { Transport, ESPLoader } = await esptoolReady;
+          const term = { write: s => console.log(String(s).replace(/\r/g,'')) };
+          transport = new Transport(port);
+          loader = new ESPLoader(transport, BAUD, term);
+
+          console.log('[Serial] syncing with ROM…');
+          const detected = await loader.main_fn();
+          console.log('[Serial] connected to', detected || CHIP);
+
+          if (btnFlash) btnFlash.disabled = !selectedFile;
+        } catch (e) {
+          const msg = e?.name === 'NotAllowedError' ? 'Browser blocked the chooser (must be a direct click on a secure page).'
+                  : e?.name === 'SecurityError'      ? 'SecurityError: this origin is not allowed to use Web Serial.'
+                  : e?.name === 'InvalidStateError'  ? 'That port is already open in another app or tab.'
+                  : e?.message || String(e);
+          console.error('[Serial] connect error:', e);
+          alert(msg);
+          btnConnect.disabled = false;
+        }
+      });
+    }
+
+    if (btnFlash) {
+      btnFlash.addEventListener('click', async () => {
+        if (!selectedFile) return alert('Choose a .bin first');
+        if (!loader)      return alert('Connect to the device first');
+        btnFlash.disabled = true;
+        try { await flashFile(selectedFile); }
+        catch (e) { alert(e.message || e); btnFlash.disabled = false; }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
 /* ============================== Small helpers / logger ============================== */
 
 /** Optional sinks — create these in HTML if you want UI feedback:
