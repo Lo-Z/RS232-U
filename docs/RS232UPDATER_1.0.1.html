@@ -249,19 +249,17 @@ const esptoolReady = loadEsptoolFromText().catch(e => {
   throw e;
 });
 
-async function connect(preselectedPort) {
+async function connect() {
   if (!('serial' in navigator)) {
-    throw new Error('Web Serial not supported. Use Chrome/Edge over HTTPS or http://localhost.');
+    throw new Error('Web Serial not supported. Use Chrome/Edge on desktop over HTTPS (or http://localhost).');
   }
 
+  // 1) Open the chooser first (this is the user gesture)
   log('Requesting serial port…');
-  // IMPORTANT: first awaited call in the click stack
-  port = preselectedPort || await navigator.serial.requestPort(/* { filters: [...] } */);
-
-  // You may open immediately; this doesn't need the esptool classes
+  port = await navigator.serial.requestPort(/* { filters: [...] } */);
   await port.open({ baudRate: BAUD });
 
-  // Optional: toggle DTR/RTS (works without the esptool module)
+  // Optional: DTR/RTS nudges to enter ROM bootloader
   try {
     await port.setSignals({ dataTerminalReady: false, requestToSend: true  });
     await new Promise(r => setTimeout(r, 100));
@@ -269,8 +267,15 @@ async function connect(preselectedPort) {
     await new Promise(r => setTimeout(r, 100));
   } catch {}
 
-  // Only now await the bundle (so chooser isn't blocked by an earlier await)
-  const { Transport, ESPLoader } = await esptoolReady;
+  // 2) Now lazy-load esptool from your embedded bundle
+  let Transport, ESPLoader;
+  try {
+    ({ Transport, ESPLoader } = await loadEsptoolFromText());
+  } catch (e) {
+    // Clean up the already-opened port so it isn't left in-use
+    try { await port.close(); } catch {}
+    throw new Error('Flasher bundle failed to load. Is ESPT_BUNDLE_TEXT present/complete? ' + (e?.message || e));
+  }
 
   const term = { write: s => log(String(s).replace(/\r/g, '')) };
   transport = new Transport(port);
@@ -281,6 +286,7 @@ async function connect(preselectedPort) {
   log('Connected to', detected || CHIP);
   return detected || CHIP;
 }
+
 
 
 async function flashBytes(bytes, onProgress = (pct)=>log(`Progress: ${pct.toFixed(0)}%`)) {
@@ -606,3 +612,4 @@ pako/dist/pako.esm.mjs:
 	</script>
 </body>
 </html>
+
