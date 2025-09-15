@@ -18,11 +18,12 @@ Welcome to RS232-U
 	- Keep In a Dry, Cool/ Room temprature area when charging 
 	- For the Best Lifespan of the battery, keep the charge between 30 - 80 %
 	- If the device gets hot, discontinue use immediately 
+	- There is an overcharge protection circuit to keep from over charging the battery
 
 1.1 The RS232-U can run on battery power or via USB-C bus power. 
 	If you want to save battery, plug the RS232-U in without turning the power switch to "On"
 
-1.2 If you want to charge the battery
+1.2 Charging the battery
 
 	- Turn on the RS232-U (The power switch links the battery to the main circuit)
 		The RS232-U will not charge if its not powered on!!
@@ -36,26 +37,26 @@ Welcome to RS232-U
 	
 2.0 The RS232-U has a Rocker style power switch located on the front left-hand side of the device.
 
-	- Up = Battery Connected
-	- Down = Battery Disconnected
+	- Up Position = Battery Connected
+	- Down Position = Battery Disconnected
 
 2.1 Note: The Battery will not charge if the power switch is in the down position
 	even if connected to a USC-C power source.
 
-2.2 Located on the front right-hand side of the device are the navigation Buttons for navigation.
+2.2 Located on the front right-hand side of the device are the menu navigation Buttons.
 
 	- Up
 	- Down
 	- Select (right)
 	- Back (Left)
 	
-2.3 Menus can be navigated by moving up or down, Using Select (right) will navigate
-	into a new menu, or can be used to trigger a function.
+2.3 Menus can be navigated by moving up or down.
 
-2.4 You can move back a page or cancel a function by using back (left)
+2.4 Using Select (right) will navigate into a new menu, or can be used to trigger a function.
 
-2.5 Some menus / functions only have one function. Simply clicking select (left)
-	will trigger the function.
+2.5 You can move back a page or cancel a function by using back (left)
+
+2.6 Some menus / features only have one function. Simply clicking select (Right) will trigger the function.
 
 -------------------------------------------------------------------------------------------
 
@@ -69,23 +70,23 @@ Welcome to RS232-U
 	- Device Settings
 	
 
-3.1 Display Test Feature-
+3.1.0 Display Test Feature-
 
-3.2 Display Test will send brand specific Power 'On' and 'Off' RS232 commands.
+3.1.1 Display Test will send brand specific Power 'On' and 'Off' RS232 commands.
 
-	- Brand names followed by (beta) have not yet been tested
+	- Brand names followed by (beta) have not yet been tested in field
 		but contain manufacture specific protocols.
 		
 	- New Brands and (beta) commands will be added in later firmware versions.
 	
-	- If a (beta) display is tested in field, please send a notification confirming
+	- If a (beta) display is tested in, please send a notification confirming
 		the (beta)'s validity and it will be updated in later firmware releases.
 		
 
-3.2 Loopback Test Feature -
+3.2.0 Loopback Test Feature -
 
-	- The loop back test sends a HEX command out of Tx,
-		while Rx is waiting to receive that expected byte.
+	- The loop back test sends a HEX byte out of Tx,
+		while Rx is waiting and expected to receive that byte.
 		If the Rx doesn't receive this byte, the test will read "failed".
 
 	- In order to execute the test properly,
@@ -96,9 +97,9 @@ Welcome to RS232-U
 	- A successful test will read "successful"
 
 
-3.3 Coms Check - 
+3.3.0 Coms Check - 
 
-3.4 Communications (Coms) Check will sent a general byte to 'Probe' for an Rx Response
+3.3.1 Communications (Coms) Check will sent a general byte to 'Probe' for an Rx Response
 	from a connected device.
 
 	- There are 4 different options '?', 'GET', "Carriage Return (\r)", and '0x00'.
@@ -108,12 +109,14 @@ Welcome to RS232-U
 	- if the Probe failed, the device will state no RX response.
 	
 
-3.5 Device Settings -
+3.4.0 Device Settings -
 
-3.6 Currently the only setting availble is Screen Brightness.
+3.4.1 Currently the only setting availble is Screen Brightness.
 
 	- You must select the brightness level desired. Brightness will not change on scroll.
 	- the RS232-U will remember the brightness set even after power off.
+
+	- additional system setting request submisisons are welcomed
 	
 -------------------------------------------------------------------------------------------
 
@@ -132,14 +135,13 @@ Welcome to RS232-U
 	
 4.2 USB-C
 
-	- Currently the USB-C is for charging
-	- Firmware Updates can be done by connecting via USB-C and using the RS232UPDATER
+	- USB-C is for charging and firmware updates
 
 -------------------------------------------------------------------------------------------
 
 5. Firmware Updates
 
-4.1 How to update the firmware 
+5.1 How to update the firmware 
 
 	- Firmware Updates are possible with the RS232UPDATER
 	- Connect the RS232-U to your computer via USB-C
@@ -149,7 +151,8 @@ Welcome to RS232-U
 	- Connect to the RS232-U's COM port (com port number may change)
 	- The COM device is titled "tinyUSB Serial (COM#)"
 	
-	Note: if you receive a "transiet" error, refresh the page and try again
+	Note: if you receive a "transient" error, refresh the page and try again
+		be sure to close any applications that may be attempting to connect to the device.
 
 	- Once the RS232-U is connected and ready, the "Start Flashing" button will highlight green
 	- Click "Start Flashing" to push the update.
@@ -157,8 +160,11 @@ Welcome to RS232-U
 	- After the firmware update is completed the RS232-U will reboot
 	- After reboot the RS232-U is safe to disconnect
 
-4.2 Download the RS232UPDATER
+5.2 Download the RS232UPDATER
 
-	- The RS232UPDATER can be found at the link below
+	- The RS232UPDATER can be Downlaoded at the link below
+	- https://github.com/Lo-Z/RS232-U/blob/main/RS232UPDATER_v1.1.0.html
+	
+	- RS232-U Firmware can be Downloaded here
 	- https://github.com/Lo-Z/RS232-U/tree/main/Firmware
 	
