@@ -116,7 +116,7 @@ Welcome to RS232-U
 	- You must select the brightness level desired. Brightness will not change on scroll.
 	- the RS232-U will remember the brightness set even after power off.
 
-	- additional system setting request submisisons are welcomed
+	- additional system setting request submissisons are welcomed
 	
 -------------------------------------------------------------------------------------------
 
