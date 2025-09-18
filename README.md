@@ -146,13 +146,15 @@ Welcome to RS232-U
 	- Firmware Updates are possible with the RS232UPDATER
 	- Connect the RS232-U to your computer via USB-C
 	- Open the RS232UPDATER Web Serial Updater Tool
-	- The RS232UPDATER MUST be opened with Google Chrome or Microsoft Edge due to protocol standards
+	- The RS232UPDATER MUST be opened with Google Chrome due to protocol standards
 	- Select the Firmware .bin file. "rs232u_(versionNumber).bin"
 	- Connect to the RS232-U's COM port (com port number may change)
 	- The COM device is titled "tinyUSB Serial (COM#)"
 	
 	Note: if you receive a "transient" error, refresh the page and try again
 		be sure to close any applications that may be attempting to connect to the device.
+  		Microsoft Edge currently always produces this error and doesnt catch the device after it enters flash mode.
+		reselecting (ESP32) in the COM port selection will allow the firmware update to continue.
 
 	- Once the RS232-U is connected and ready, the "Start Flashing" button will highlight green
 	- Click "Start Flashing" to push the update.
