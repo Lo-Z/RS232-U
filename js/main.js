@@ -1,3 +1,5 @@
+'use strict';
+
 /* ---------- Global state -------------------------------------------------- */
 let port                  = null; // active SerialPort
 let transport             = null; // esptool transport
