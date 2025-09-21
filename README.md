@@ -111,10 +111,18 @@ Welcome to RS232-U
 
 3.4.0 Device Settings -
 
-3.4.1 Currently the only setting availble is Screen Brightness.
+3.4.1 Screen Brightness.
 
 	- You must select the brightness level desired. Brightness will not change on scroll.
 	- the RS232-U will remember the brightness set even after power off.
+
+3.4.2 Themes.
+
+	- Multiple color Themes are available. 
+ 	- You must select the Theme in order to apply. Theme will not change on scroll
+  	- the RS232-U will remember the Theme set even after power off.
+
+3.4.3 Additional Settings
 
 	- additional system setting request submissisons are welcomed
 	
