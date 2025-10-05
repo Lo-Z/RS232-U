@@ -3,7 +3,7 @@ Welcome to RS232-U
 	
 1. Charging and Power
 2. Buttons & Navigation
-3. Options and Functions
+3. Options, Functions, and Device Settings
 4. connectors and terminals
 5. Firmware Updates
 
