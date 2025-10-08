@@ -1,0 +1,33 @@
+@import './firmware-page.css';
+
+/* ---------- Base ---------- */
+* { 
+  box-sizing: border-box;
+}
+
+html, body { 
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.45;
+  text-align: left;
+}
+
+/* ---------- Theme tokens ---------- */
+:root {
+  --bg: #121212;
+  --panel: #181818;
+  --panel-2: #1f1f1f;
+  --text: #e0e0e0;
+  --muted: #a9a9a9;
+  --accent: #4caf50;
+  --border: #2a2a2a;
+  --term-green: #00ff00;
+  --error: #ff3b30;
+  --warn: #ffd166;
+}
