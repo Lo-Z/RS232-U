@@ -1,3 +1,21 @@
+```text
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ ██████╗  ██████╗  ██████╗  ██████╗  ██████╗           ██╗   ██╗
+ ██╔══██╗██╔════╝  ╚════██╗╚════██╗ ╚════██╗           ██║   ██║
+ ██████╔╝██████╗    █████╔╝ █████╔╝  █████╔╝  ██████╔  ██║   ██║
+ ██╔══██╗╚═══██╗   ██╔═══╝  ╚═══██╗ ██╔═══╝   ╚═════╝  ██║   ██║
+ ██║  ██║██████╔╝  ███████╗██████╔╝ ███████╗           ╚██████╔╝
+ ╚═╝  ╚═╝╚═════╝   ╚══════╝╚═════╝  ╚══════╝            ╚═════╝ 
+ 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+----------------------------------------------------------------------
+
+Developed by Knaus Brands & Holding
+				
+----------------------------------------------------------------------
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+```
 Welcome to RS232-U
 	The easy way to test RS232 communication.
 	
@@ -35,7 +53,7 @@ Welcome to RS232-U
 
 2. Buttons & Navigation
 	
-2.0 The RS232-U has a Rocker style power switch located on the front left-hand side of the device.
+2.0 The RS232-U has a power switch located on the left-hand side of the device.
 
 	- Up Position = Battery Connected
 	- Down Position = Battery Disconnected
@@ -79,7 +97,7 @@ Welcome to RS232-U
 		
 	- New Brands and (beta) commands will be added in later firmware versions.
 	
-	- If a (beta) display is tested in, please send a notification confirming
+	- If a (beta) display is successfully tested in field, please send a notification confirming
 		the (beta)'s validity and it will be updated in later firmware releases.
 		
 
@@ -95,6 +113,13 @@ Welcome to RS232-U
 		you can confirm that the signal is able to reach the intended device.
 
 	- A successful test will read "successful"
+
+	- NOTE: A standard db9 uses pin 3 for Tx and pin 2 for Rx.
+		if you want to test that a db9 is terminated correctly,
+		a NULL modem must be placed in order to send your pin 3 Tx to pin 2 Rx.
+		Otherwise, Plugging in wihtout a NULL modem, you'll be sending pin 3 Tx to pin 3 Tx.
+
+		Both db9 terminals on the RS232-U have Pin 3 Tx and pin 2 Rx.
 
 
 3.3.0 Coms Check - 
@@ -122,7 +147,13 @@ Welcome to RS232-U
  	- You must select the Theme in order to apply. Theme will not change on scroll
   	- the RS232-U will remember the Theme set even after power off.
 
-3.4.3 Additional Settings
+3.4.3 Firmware.
+
+	- Firmware version is visable at the bottom of the settings list. 
+		You can highlight the firmware but selecting it will do nothing.
+		This is simply for ease of use when checking your version.
+
+3.4.4 Additional Settings
 
 	- additional system setting request submissisons are welcomed
 	
@@ -137,9 +168,9 @@ Welcome to RS232-U
 	- 1 Female DB9
 	- 1 Three pin Block Connector	
 	
-	- All Tx are connected to the same line
-	- All Rx are connected to the same line
-	- All grounds are connected to the same line
+	- All Tx are connected to the same line!
+	- All Rx are connected to the same line!
+	- All grounds are connected to the same line!
 	
 4.2 USB-C
 
@@ -155,15 +186,9 @@ Welcome to RS232-U
 	- Connect the RS232-U to your computer via USB-C
 	- Open the RS232UPDATER Web Serial Updater Tool
 	- The RS232UPDATER MUST be opened with Google Chrome due to protocol standards
-	- Select the Firmware .bin file. "rs232u_(versionNumber).bin"
+	- Select the Firmware .bin file. "rs232u_vx.x.x_YYYMMDD.bin"
 	- Connect to the RS232-U's COM port (com port number may change)
-	- The COM device is titled "tinyUSB Serial (COM#)"
-	
-	Note: if you receive a "transient" error, refresh the page and try again
-		be sure to close any applications that may be attempting to connect to the device.
-  		Microsoft Edge currently always produces this error and doesnt catch the device after it enters flash mode.
-		reselecting (ESP32) in the COM port selection will allow the firmware update to continue.
-
+	- The COM device is titled "tinyUSB (COM#)"
 	- Once the RS232-U is connected and ready, the "Start Flashing" button will highlight green
 	- Click "Start Flashing" to push the update.
 	- DO NOT DISCONNECT THE RS232-U WHILE THE FIRMWARE IS UPDATING
@@ -173,7 +198,7 @@ Welcome to RS232-U
 5.2 Download the RS232UPDATER
 
 	- The RS232UPDATER can be Downlaoded at the link below
-	- https://github.com/Lo-Z/RS232-U/blob/main/RS232UPDATER_v1.1.0.html
+	- https://github.com/Lo-Z/RS232-U/blob/main/RS232UPDATER_v2.0.0.html
 	
 	- RS232-U Firmware can be Downloaded here
 	- https://github.com/Lo-Z/RS232-U/tree/main/Firmware
